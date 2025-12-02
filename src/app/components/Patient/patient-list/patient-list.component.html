@@ -1,0 +1,32 @@
+<h2>Patients</h2>
+
+<button (click)="create()">Create Patient</button>
+
+<table border="1" cellpadding="10">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Mobile</th>
+      <th>Email</th>
+      <th>DOB</th>
+      <th>Gender</th>
+      <th>Active</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let p of patients">
+      <td>{{ p.fullName }}</td>
+      <td>{{ p.mobile }}</td>
+      <td>{{ p.email }}</td>
+      <td>{{ p.dateOfBirth | date:'shortDate' }}</td>
+      <td>{{ p.gender }}</td>
+      <td>{{ p.isActive ? 'Yes' : 'No' }}</td>
+      <td>
+        <button (click)="edit(p.id!)">Edit</button>
+        <button (click)="delete(p.id!)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,8 @@
+<h2>Edit Doctor</h2>
+<div *ngIf="doctor; else loadingTpl">
+  <app-doctor-form [model]="doctor" (submitForm)="save($event)"></app-doctor-form>
+</div>
+<ng-template #loadingTpl>Loading...</ng-template>
+<button (click)="cancel()" class="btn btn-secondary" style="margin-top: 10px;">
+  Cancel
+</button>

@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+.text-danger {
+  color: #dc3545 !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.navbar {
+  display: flex;
+  gap: 0;
+  background: #2c3e50;
+}
+
+.navbar a {
+  margin: 0 !important;
+  padding: 10px 16px;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  display: block;
+}
+
+.navbar a.active {
+  font-weight: bold;
+  border-bottom: 2px solid #f1c40f;
+}
+

@@ -1,0 +1,7 @@
+.form-grid { max-width:700px; display:flex; flex-direction:column; gap:10px; }
+.form-row { display:flex; gap:12px; align-items:flex-start; }
+.form-row label { width:150px; font-weight:600; padding-top:6px; }
+.form-row input, .form-row textarea { flex:1; padding:6px; border:1px solid #ccc; border-radius:4px; }
+.error small { color:#d9534f; display:block; }
+.form-actions { margin-top:12px; display:flex; gap:10px; }
+.error-summary small { display:block; color:#d9534f; margin-top:6px; }

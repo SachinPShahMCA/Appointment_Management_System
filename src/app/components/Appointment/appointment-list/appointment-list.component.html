@@ -1,0 +1,20 @@
+<h2>Appointments</h2>
+<button (click)="createAppointment()">Add Appointment</button>
+
+<table border="1" cellpadding="10">
+  <thead><tr><th>ID</th><th>Patient</th><th>Doctor</th><th>Start</th><th>End</th><th>Subject</th><th></th></tr></thead>
+  <tbody>
+    <tr *ngFor="let a of appointments">
+      <td>{{a.id}}</td>
+      <td>{{a.patient?.fullName}}</td>
+      <td>{{a.doctor?.fullName}}</td>
+      <td>{{a.startTime | date:'short'}}</td>
+      <td>{{a.endTime | date:'short'}}</td>
+      <td>{{a.subject}}</td>
+      <td>
+        <button (click)="edit(a.id)">Edit</button>
+        <button (click)="delete(a.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

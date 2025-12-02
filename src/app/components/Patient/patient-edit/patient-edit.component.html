@@ -1,0 +1,8 @@
+<h2>Edit Patient</h2>
+
+<app-patient-form
+  *ngIf="patient"
+  [model]="patient"
+  (submitForm)="save($event)"
+  (cancel)="cancel()">
+</app-patient-form>

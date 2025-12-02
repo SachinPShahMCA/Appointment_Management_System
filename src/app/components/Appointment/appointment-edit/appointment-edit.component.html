@@ -1,0 +1,2 @@
+<h2>Edit Appointment</h2>
+<app-appointment-form *ngIf="appointment" [model]="appointment" (submitForm)="save($event)" (cancel)="cancel()"></app-appointment-form>
