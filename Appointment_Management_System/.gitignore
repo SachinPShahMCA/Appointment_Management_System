@@ -1,0 +1,39 @@
+﻿# Build folders
+bin/
+obj/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.swp
+*.tmp
+
+# Visual Studio cache/options
+.vs/
+
+# Logs
+*.log
+
+# Publish output
+publish/
+out/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# NuGet
+*.nupkg
+packages/
+.nuget/
+
+# IDE settings
+.idea/
+*.iml
+
+# SQLite database (ignore all DB files)
+*.db
+*.db-shm
+*.db-wal
+Database/

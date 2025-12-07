@@ -26,6 +26,7 @@ builder.Services.AddControllers(options => {
     options.Filters.Add<Appointment_Management_System.Filters.ResponseWrapper>();
 }).AddJsonOptions(options =>
 {
+    options.JsonSerializerOptions.Converters.Add(new UtcDateTimeConverter());
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
 

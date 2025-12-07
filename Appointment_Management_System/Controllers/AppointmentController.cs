@@ -1,4 +1,5 @@
-﻿using Appointment_Management_System.BL.Interface;
+﻿using Appointment_Management_System.BL.ExtensionMethods;
+using Appointment_Management_System.BL.Interface;
 using Appointment_Management_System.BL.Repositories;
 using Appointment_Management_System.DTO;
 using Appointment_Management_System.Models;
@@ -24,8 +25,15 @@ namespace Appointment_Management_System.Controllers
 
             if (appointments == null || !appointments.Any())
                 return NotFound("No appointments found");
+            //else {
+            //    foreach (var ap in appointments)
+            //    {
+            //        ap.StartTime = DateTime.SpecifyKind(ap.StartTime, DateTimeKind.Utc);
+            //        ap.EndTime = DateTime.SpecifyKind(ap.EndTime, DateTimeKind.Utc);
+            //    }
+            //}
 
-            return Ok(appointments);
+                return Ok(appointments);
         }
         [HttpGet("{id:int}")]
 
