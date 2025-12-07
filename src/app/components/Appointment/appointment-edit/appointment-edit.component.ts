@@ -16,10 +16,7 @@ export class AppointmentEditComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.svc.getById(id).subscribe(res => {
       this.appointment = {
-        ...res,
-        // convert backend ISO to datetime-local format in form (form uses helper)
-        startTime: res.startTime?.substring(0,16),
-        endTime: res.endTime?.substring(0,16)
+        ...res
       };
     });
   }

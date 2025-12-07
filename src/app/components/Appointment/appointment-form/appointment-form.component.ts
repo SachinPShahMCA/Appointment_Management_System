@@ -115,9 +115,7 @@ appointmentValidator = (group: AbstractControl) => {
     // clean values, ensure ISO strings for backend
     const raw = this.form.value;
     const payload = {
-      ...raw,
-      startTime: raw.startTime,
-    endTime: raw.endTime,
+      ...raw
     };
     this.submitForm.emit(payload);
   }
