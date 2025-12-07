@@ -1,4 +1,5 @@
-﻿using Appointment_Management_System.BL.Interface;
+﻿using Appointment_Management_System.BL.ExtensionMethods;
+using Appointment_Management_System.BL.Interface;
 using Appointment_Management_System.Data;
 using Appointment_Management_System.DTO;
 using Appointment_Management_System.Models;
@@ -18,9 +19,7 @@ namespace Appointment_Management_System.BL.Repositories
 
         public AppointmentValidationResult ValidateAppointment(AppointmentDto dto)
         {
-            var startLocal = dto.StartTime;
-            var endLocal = dto.EndTime;
-
+            
             if (string.IsNullOrWhiteSpace(dto.Subject) || dto.Subject.Length < 3 || dto.Subject.Length > 100)
                 return new AppointmentValidationResult
                 {
@@ -29,17 +28,17 @@ namespace Appointment_Management_System.BL.Repositories
                 };
 
             
-            TimeSpan officeStart = new(10, 0, 0);
-            TimeSpan officeEnd = new(17, 0, 0);
+            TimeSpan officeStart = new(4,30, 0);
+            TimeSpan officeEnd = new(11, 30, 0);
 
-            if (startLocal.TimeOfDay < officeStart || endLocal.TimeOfDay > officeEnd)
+            if (dto.StartTime.TimeOfDay < officeStart || dto.EndTime.TimeOfDay > officeEnd)
                 return new AppointmentValidationResult
                 {
                     IsValid = false,
                     Message = "Appointment must be between 10:00 AM and 05:00 PM."
                 };
 
-            if ((endLocal - (startLocal)).TotalHours > 1)
+            if ((dto.EndTime - (dto.StartTime)).TotalHours > 1)
                 return new AppointmentValidationResult
                 {
                     IsValid = false,
@@ -47,7 +46,7 @@ namespace Appointment_Management_System.BL.Repositories
                 };
             
             bool isOverlap = _context.Appointments.Any(a => a.DoctorId == dto.DoctorId &&
-                                                                  dto.StartTime < a.EndTime &&
+                                                                 dto.StartTime < a.EndTime &&
                                                                    dto.EndTime > a.StartTime);
             if (isOverlap)
                 return new AppointmentValidationResult
@@ -61,9 +60,6 @@ namespace Appointment_Management_System.BL.Repositories
                 IsValid = true,
                 Message = "Appointment is valid."
             };
-
-
-
         }
 
         public override async Task<IEnumerable<Appointment>> GetAllAsync()

@@ -11,6 +11,7 @@
         public string Subject { get; set; }
         public string? Description { get; set; }
         public string? DoctorComment { get; set; }
+        public string PatientTimeZoneId { get; set; } = "UTC";
     }
     public class AppointmentValidationResult
     {
