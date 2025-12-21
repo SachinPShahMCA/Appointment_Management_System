@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BL\Exceptions\**" />
+    <Content Remove="BL\Exceptions\**" />
+    <EmbeddedResource Remove="BL\Exceptions\**" />
+    <None Remove="BL\Exceptions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="BL\ExtensionMethods\ExceptionMiddleware.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -18,13 +29,23 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="NodaTime" Version="3.2.2" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+    <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
+    <PackageReference Include="Serilog.Sinks.Async" Version="2.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="BL\Transections\" />
     <Folder Include="DataBase\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Appointment_Management_System.Abstractions\Appointment_Management_System.Abstractions.csproj" />
+    <ProjectReference Include="..\Appointment_Management_System.Observability\Appointment_Management_System.Observability.csproj" />
   </ItemGroup>
 
 </Project>

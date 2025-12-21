@@ -1,4 +1,5 @@
-﻿using Appointment_Management_System.BL.Interface;
+﻿using Appointment_Management_System.BL.Exceptions;
+using Appointment_Management_System.BL.Interface;
 using Appointment_Management_System.Data;
 using Appointment_Management_System.DTO;
 using Appointment_Management_System.Models;
@@ -24,7 +25,7 @@ namespace Appointment_Management_System.BL.Repositories
                 .AnyAsync(a => a.PatientId == id);
 
             if (hasAppointments)
-                throw new Exception("Patient cannot be deleted because appointments exist.");
+                throw new BusinessException("Patient cannot be deleted because appointments exist.");
 
             // Soft delete
             Patient.IsDeleted = true;
