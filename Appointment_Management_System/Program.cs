@@ -4,6 +4,7 @@ using Appointment_Management_System.BL.Repositories;
 using Appointment_Management_System.Data;
 using Appointment_Management_System.Observability.Extensions;
 using Appointment_Management_System.Observability.Middlewares;
+using Appointment_Management_System.Observability.Stores;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
@@ -41,11 +42,21 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseSqlite(builder.Configuration.GetConnectionString("Default") ?? "Data Source=appointments.db"));
 
+// SQL Server for Observability
+builder.Services.AddDbContext<ObservabilityDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("ObservabilitySqlServer")));
+
+
 // Repositories & UnitOfWork
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IPatient, PatientRepository>();
 builder.Services.AddScoped<IDoctor, DoctorRepository>();
 builder.Services.AddScoped<IAppointment, AppointmentRepository>();
+builder.Services.AddScoped<IExceptionStore, ExceptionStore>();
+builder.Services.AddScoped<IPerformanceStore, PerformanceStore>();
+builder.Services.AddScoped<ITelemetryStore, TelemetryStore>();
+
 //builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Host.UseSerilog();
 builder.Services.AddHealthChecks()

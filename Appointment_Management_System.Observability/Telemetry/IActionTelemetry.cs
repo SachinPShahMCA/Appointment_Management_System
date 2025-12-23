@@ -8,7 +8,7 @@ namespace Appointment_Management_System.Observability.Telemetry
 {
     public interface IActionTelemetry
     {
-        void Track(string action, object data = null);
+        Task TrackAsync(string action, object data = null);
     }
 
 }

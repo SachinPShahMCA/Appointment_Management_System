@@ -18,6 +18,20 @@ namespace Appointment_Management_System.Controllers
             _appointmentRepository = appointmenRepository;
         }
 
+        [HttpGet("test/system-exception")]
+        public IActionResult ThrowSystemException()
+        {
+            string s = null;
+            return Ok(s.Length); // NullReferenceException
+        }
+
+        [HttpGet("test/slow-api")]
+        public async Task<IActionResult> SlowApi()
+        {
+            await Task.Delay(4000); // > 3000ms threshold
+            return Ok("Slow response");
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllAppointments()
         {

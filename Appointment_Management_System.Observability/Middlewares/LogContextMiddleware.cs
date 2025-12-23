@@ -15,7 +15,6 @@ namespace Appointment_Management_System.Observability.Middlewares
             {
                 tenantId = parsedTenantId;
             }
-                       
             var logContext = new AppLogContext
             {
                 TenantId = tenantId,
@@ -24,21 +23,15 @@ namespace Appointment_Management_System.Observability.Middlewares
            context.Request.Headers["X-Correlation-Id"].FirstOrDefault()
            ?? Guid.NewGuid().ToString()
             };
-
             LogContextAccessor.Set(logContext);
-            
 
             using (SerilogLogContext.PushProperty("TenantId", logContext.TenantId))
             using (SerilogLogContext.PushProperty("UserId", logContext.UserId))
             using (SerilogLogContext.PushProperty("CorrelationId", logContext.CorrelationId))
             {
-                // 5️⃣ Return CorrelationId to client
                 context.Response.Headers["X-Correlation-Id"] = logContext.CorrelationId;
-
-                // 6️⃣ Continue pipeline
                 await next(context);
             }
-
         }
     }
 

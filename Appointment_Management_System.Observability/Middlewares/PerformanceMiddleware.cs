@@ -1,4 +1,5 @@
-﻿using Appointment_Management_System.Observability.Telemetry;
+﻿using Appointment_Management_System.Observability.Stores;
+using Appointment_Management_System.Observability.Telemetry;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,13 +16,16 @@ namespace Appointment_Management_System.Observability.Middlewares
         private const int ThresholdMs = 3000;
         private readonly ILogger<PerformanceMiddleware> _logger;
         private readonly IActionTelemetry _telemetry;
+        private readonly IPerformanceStore _performanceStore;
 
         public PerformanceMiddleware(
             ILogger<PerformanceMiddleware> logger,
-            IActionTelemetry telemetry)
+            IActionTelemetry telemetry,
+            IPerformanceStore performanceStore)
         {
             _logger = logger;
             _telemetry = telemetry;
+            _performanceStore = performanceStore;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -37,12 +41,14 @@ namespace Appointment_Management_System.Observability.Middlewares
                     context.Request.Path,
                     sw.ElapsedMilliseconds);
 
-                _telemetry.Track("SLOW_API", new
+                await _telemetry.TrackAsync("SLOW_API", new
                 {
                     context.Request.Path,
                     context.Request.Method,
                     sw.ElapsedMilliseconds
                 });
+
+                await _performanceStore.StoreAsync(context, sw.ElapsedMilliseconds, ThresholdMs);
             }
         }
     }

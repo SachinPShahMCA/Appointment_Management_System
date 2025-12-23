@@ -1,4 +1,5 @@
 ﻿using Appointment_Management_System.Common.Log;
+using Appointment_Management_System.Observability.Stores;
 using Microsoft.Extensions.Logging;
 
 namespace Appointment_Management_System.Observability.Telemetry
@@ -7,16 +8,19 @@ namespace Appointment_Management_System.Observability.Telemetry
     {
         private readonly ILogger<ActionTelemetry> _logger;
         private readonly ILogContextAccessor _ctx;
+        private readonly ITelemetryStore _telemetryStore;
 
         public ActionTelemetry(
             ILogger<ActionTelemetry> logger,
-            ILogContextAccessor ctx)
+            ILogContextAccessor ctx,
+            ITelemetryStore telemetryStore)
         {
             _logger = logger;
             _ctx = ctx;
+            _telemetryStore = telemetryStore;
         }
 
-        public void Track(string action, object data = null)
+        public async Task TrackAsync(string action, object data = null)
         {
             var c = _ctx.Current;
 
@@ -27,6 +31,7 @@ namespace Appointment_Management_System.Observability.Telemetry
                 c?.UserId,
                 c?.CorrelationId,
                 data);
+            await _telemetryStore.StoreAsync(action, data);
         }
     }
 

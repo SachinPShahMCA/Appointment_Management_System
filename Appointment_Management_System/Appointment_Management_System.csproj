@@ -15,6 +15,9 @@
 
   <ItemGroup>
     <Compile Remove="BL\ExtensionMethods\ExceptionMiddleware.cs" />
+    <Compile Remove="Observability1\Stores\IExceptionStore.cs" />
+    <Compile Remove="Observability1\Stores\IPerformanceStore.cs" />
+    <Compile Remove="Observability1\Stores\ITelemetryStore.cs" />
   </ItemGroup>
 
   <ItemGroup>
